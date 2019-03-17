@@ -67,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           backgroundColor: currentColor,
           centerTitle: true,
           title: new Text(
-            "TODO",
-            style: new TextStyle(fontSize: 17.0),
+            "MY TODOS",
+            style: new TextStyle(fontSize: 20.0),
           ),
           elevation: 0.0,
         ),
