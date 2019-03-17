@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter ToDos',
       theme: new ThemeData(
+        fontFamily: 'product sans',
         primarySwatch: Colors.blue,
       ),
       home: new MyHomePage(),
@@ -26,7 +27,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
 // defining colors pallete
  var appColors = [Color.fromRGBO(231, 129, 109, 1.0),Color.fromRGBO(99, 138, 223, 1.0),Color.fromRGBO(111, 194, 173, 1.0)];
@@ -144,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                                      children: <Widget>[
                                        Icon(cardList[position].icon,
                                        color: appColors[position],
+                                       size: 38.0,
                                        ),
                                        Icon(Icons.more_vert,color: Colors.black),
                                      ],
@@ -159,8 +161,18 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                                          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
                                          child: new Text(
                                            "${cardList[position].tasksremaining} Tasks",
-                                           style: TextStyle(color: Colors.grey),
+                                           style: TextStyle(color: Colors.black),
                                          ),
+                                       ),
+                                       new Padding(
+                                         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                                         child: new Text("${cardList[position].CardTitle}",
+                                         style: new TextStyle(fontSize: 28.0),
+                                         ),
+                                       ),
+                                       new Padding(
+                                         padding: const EdgeInsets.all(8.0),
+                                         child: LinearProgressIndicator(value: cardList[position].taskCompletation,),
                                        ),
                                      ], // widget end
                                    ),
@@ -168,8 +180,43 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                                ],
                              ),
                            ),
+
+                           shape: RoundedRectangleBorder(
+                             borderRadius: BorderRadius.circular(10.0),
+                           ),
                          ),
                        ),
+                       onHorizontalDragEnd: (details) {
+
+                          animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+                          curvedAnimation = CurvedAnimation(parent: animationController, curve: Curves.fastOutSlowIn);
+                          animationController.addListener(() {
+                            setState(() {
+                              currentColor = colorTween.evaluate(curvedAnimation);
+                            });
+                          });
+
+                          if(details.velocity.pixelsPerSecond.dx > 0) {
+                            if(cardIndex>0) {
+                              cardIndex--;
+                              colorTween = ColorTween(begin:currentColor,end:appColors[cardIndex]);
+                            }
+                          }else {
+                            if(cardIndex<2) {
+                              cardIndex++;
+                              colorTween = ColorTween(begin: currentColor,
+                                  end: appColors[cardIndex]);
+                            }
+                          }
+                          setState(() {
+                            scrollController.animateTo((cardIndex)*256.0, duration: Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
+                          });
+
+                          colorTween.animate(curvedAnimation);
+
+                          animationController.forward( );
+
+                        }, // horixontal
                       ) ;
                      },
                     ),
@@ -179,6 +226,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
             ],
           ),
         ),
+        drawer: Drawer(),
       );
     }
   }
