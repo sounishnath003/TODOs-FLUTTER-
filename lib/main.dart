@@ -90,16 +90,58 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
-                      child:  Text("Hello Sounish",
+                      child:  Text("Hello Sounish.",
                       style: new TextStyle(fontSize: 30.0,
                       color: Colors.white,
                       fontWeight: FontWeight.w400)
                       ),
                     ),
-                    new Text("Looks like feel good.")
+                    new Text("Looks like feel good.",
+                    style: new TextStyle(
+                      color: Colors.white
+                    ),
+                    ),
+                    new Text(
+                      "You have 3 tasks to do today.",
+                      style: new TextStyle(color: Colors.white),),
                   ],
                 ),
               ),
+              ),
+              new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 64.0,
+                    vertical: 16.0),
+                    child: new Text("TODAY : MAR 17, 2019",
+                    style: new TextStyle(color: Colors.white),
+                  ),
+                  ),
+
+                  new Container(
+                    height: 350.0,
+                    child: ListView.builder(
+                      itemCount: 3,
+                      physics: NeverScrollableScrollPhysics(),
+                      controller: scrollController,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int position) {
+                      return GestureDetector(
+                       child: Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: new Card(
+                           child: new Container(
+                             width: 262.0,
+                             
+                           ),
+                         ),
+                       ),
+                      ) ;
+                     },
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
