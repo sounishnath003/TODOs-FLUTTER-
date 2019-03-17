@@ -133,7 +133,40 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
                          child: new Card(
                            child: new Container(
                              width: 262.0,
-                             
+                             child: new Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: <Widget>[
+                                 new Padding(
+                                   padding: const EdgeInsets.all(8.0),
+                                   child: new Row(
+                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                     children: <Widget>[
+                                       Icon(cardList[position].icon,
+                                       color: appColors[position],
+                                       ),
+                                       Icon(Icons.more_vert,color: Colors.black),
+                                     ],
+                                   ),
+                                 ),
+
+                                 new Padding(
+                                   padding: const EdgeInsets.all(8.0),
+                                   child: new Column(
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: <Widget>[
+                                       new Padding(
+                                         padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 4.0),
+                                         child: new Text(
+                                           "${cardList[position].tasksremaining} Tasks",
+                                           style: TextStyle(color: Colors.grey),
+                                         ),
+                                       ),
+                                     ], // widget end
+                                   ),
+                                 ),
+                               ],
+                             ),
                            ),
                          ),
                        ),
