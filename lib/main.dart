@@ -54,9 +54,55 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
     @override
     Widget build(BuildContext context) {
-      return Center(
-        child: Container(
-           child: new Text("hello Sounish"),
+      return new Scaffold(
+        backgroundColor: currentColor,
+        appBar: new AppBar(
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Icon(Icons.search),
+            ) //padding
+          ], // <widgets>[]
+          backgroundColor: currentColor,
+          centerTitle: true,
+          title: new Text(
+            "TODO",
+            style: new TextStyle(fontSize: 17.0),
+          ),
+          elevation: 0.0,
+        ),
+        // body
+        body: new Center(
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new Row(),
+              new Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0,
+                horizontal: 64.0),
+              child: new Container(
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Icon(Icons.account_circle,size:45.0,color: Colors.white),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
+                      child:  Text("Hello Sounish",
+                      style: new TextStyle(fontSize: 30.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400)
+                      ),
+                    ),
+                    new Text("Looks like feel good.")
+                  ],
+                ),
+              ),
+              ),
+            ],
+          ),
         ),
       );
     }
